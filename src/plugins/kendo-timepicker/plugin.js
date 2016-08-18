@@ -21,6 +21,25 @@ QueryBuilder.define('kendo-timepicker', function(options) {
                 .css({
                     'width': '250px'
                 }).kendoTimePicker(options);
+
+            rule.$el.find(Selectors.rule_value)
+                .parents('.k-timepicker')
+                .css({
+                    'display': 'block'
+                });
+
+            rule.$el.find(Selectors.filter_container).css({
+                'vertical-align': 'top'
+            });
+
+            rule.$el.find(Selectors.operator_container).css({
+                'vertical-align': 'top'
+            });
+            rule.$el.find(Selectors.drag_handle).css({
+                'vertical-align': 'top',
+                'position': 'relative',
+                'top': '10px'
+            });
         }
     })
 });

@@ -3651,8 +3651,34 @@ QueryBuilder.define('kendo-datepicker', function (options) {
                 .css({
                     'width': '250px'
                 }).kendoDatePicker(options);
+
+            rule.$el.find(Selectors.rule_value)
+                .parents('.k-datepicker')
+                .css({
+                    'display': 'block'
+                });
+
+            rule.$el.find(Selectors.filter_container).css({
+                'vertical-align': 'top'
+            });
+
+            rule.$el.find(Selectors.operator_container).css({
+                'vertical-align': 'top'
+            });
+            rule.$el.find(Selectors.drag_handle).css({
+                'vertical-align': 'top',
+                'position': 'relative',
+                'top': '10px'
+            });
         }
-    })
+    });
+
+    this.on('afterUpdateRuleOperator', function (e, rule) {
+        //noinspection JSUnresolvedFunction
+        console.log(rule.filter);
+    });
+
+
 });
 
 
@@ -3679,6 +3705,25 @@ QueryBuilder.define('kendo-datetimepicker', function (options) {
                 .css({
                     'width': '250px'
                 }).kendoDateTimePicker(options);
+
+            rule.$el.find(Selectors.rule_value)
+                .parents('.k-datetimepicker')
+                .css({
+                    'display': 'block'
+                });
+
+            rule.$el.find(Selectors.filter_container).css({
+                'vertical-align': 'top'
+            });
+
+            rule.$el.find(Selectors.operator_container).css({
+                'vertical-align': 'top'
+            });
+            rule.$el.find(Selectors.drag_handle).css({
+                'vertical-align': 'top',
+                'position': 'relative',
+                'top': '10px'
+            });
         }
     })
 });
@@ -3852,6 +3897,25 @@ QueryBuilder.define('kendo-timepicker', function(options) {
                 .css({
                     'width': '250px'
                 }).kendoTimePicker(options);
+
+            rule.$el.find(Selectors.rule_value)
+                .parents('.k-timepicker')
+                .css({
+                    'display': 'block'
+                });
+
+            rule.$el.find(Selectors.filter_container).css({
+                'vertical-align': 'top'
+            });
+
+            rule.$el.find(Selectors.operator_container).css({
+                'vertical-align': 'top'
+            });
+            rule.$el.find(Selectors.drag_handle).css({
+                'vertical-align': 'top',
+                'position': 'relative',
+                'top': '10px'
+            });
         }
     })
 });
