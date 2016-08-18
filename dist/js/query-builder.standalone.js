@@ -278,7 +278,7 @@
  */
 
 // Languages: en
-// Plugins: bt-checkbox, bt-selectpicker, bt-tooltip-errors, change-filters, filter-description, invert, kendo-dropdownlist, kendo-input, mongodb-support, sortable, sql-support, unique-filter
+// Plugins: bt-checkbox, bt-selectpicker, bt-tooltip-errors, change-filters, filter-description, invert, kendo-checkbox, kendo-colorpicker, kendo-datepicker, kendo-datetimepicker, kendo-dropdownlist, kendo-input, kendo-radio, kendo-textarea, kendo-timepicker, mongodb-support, sortable, sql-support, unique-filter
 (function(root, factory) {
     if (typeof define == 'function' && define.amd) {
         define('query-builder', ['jquery', 'doT', 'jQuery.extendext'], factory);
@@ -438,7 +438,11 @@ QueryBuilder.inputs = [
     'textarea',
     'radio',
     'checkbox',
-    'select'
+    'select',
+    'date',
+    'time',
+    'datetime',
+    'color'
 ];
 
 /**
@@ -3558,6 +3562,120 @@ QueryBuilder.extend({
 
 
 /*!
+ * jQuery QueryBuilder Slider Buttons with kendo ui
+ * Applies Bootstrap Select on filters and operators combo-boxes.
+ */
+
+/**
+ * @throws ConfigError
+ */
+QueryBuilder.define('kendo-checkbox', function () {
+    this.on('afterCreateRuleInput', function (e, rule) {
+        if (rule.filter.input == 'checkbox') {
+            rule.$el.find(Selectors.rule_value)
+                .removeClass('form-control')
+                .addClass('k-checkbox');
+            rule.$el.find(Selectors.rule_value).siblings().addClass('k-checkbox-label');
+            rule.$el.find(Selectors.rule_value).siblings().css({
+                'padding-left': '25px',
+                'margin-right': '10px'
+            });
+            rule.$el.find(Selectors.value_container).css({
+                'width': '330px'
+            });
+            rule.$el.find(Selectors.filter_container).css({
+                'vertical-align': 'top'
+            });
+            rule.$el.find(Selectors.operator_container).css({
+                'vertical-align': 'top'
+            });
+
+        }
+    });
+});
+
+
+/*!
+ * jQuery QueryBuilder Kendo Datepicker
+ * Applies Bootstrap Select on filters and operators combo-boxes.
+ */
+
+/**
+ * @throws ConfigError
+ */
+QueryBuilder.define('kendo-colorpicker', function(options) {
+    if (!$.fn.kendoColorPicker) {
+        Utils.error('MissingLibrary', 'Bootstrap Select is required to use "kendoColorPicker" plugin. Get it here: http://silviomoreto.github.io/bootstrap-select');
+    }
+
+    
+    this.on('afterCreateRuleInput', function (e, rule) {
+        if (rule.filter.input == 'color') {
+            rule.$el.find(Selectors.rule_value)
+                .removeClass('form-control')
+                .addClass('k-input')
+                .css({
+                    'width': '250px'
+                }).kendoColorPicker(options);
+        }
+    })
+});
+
+
+/*!
+ * jQuery QueryBuilder Kendo Datepicker
+ * Applies Bootstrap Select on filters and operators combo-boxes.
+ */
+
+/**
+ * @throws ConfigError
+ */
+QueryBuilder.define('kendo-datepicker', function(options) {
+    if (!$.fn.kendoDatePicker) {
+        Utils.error('MissingLibrary', 'Bootstrap Select is required to use "kendoDatePicker" plugin. Get it here: http://silviomoreto.github.io/bootstrap-select');
+    }
+
+    this.on('afterCreateRuleInput', function (e, rule) {
+        if (rule.filter.input == 'date') {
+            rule.$el.find(Selectors.rule_value)
+                .removeClass('form-control')
+                .addClass('k-input')
+                .css({
+                    'width': '250px'
+                }).kendoDatePicker(options);
+        }
+    })
+});
+
+
+/*!
+ * jQuery QueryBuilder Kendo Datepicker
+ * Applies Bootstrap Select on filters and operators combo-boxes.
+ */
+
+/**
+ * @throws ConfigError
+ */
+QueryBuilder.define('kendo-datetimepicker', function(options) {
+    if (!$.fn.kendoDateTimePicker) {
+        Utils.error('MissingLibrary', 'Bootstrap Select is required to use "kendoDateTimePicker" plugin. Get it here: http://silviomoreto.github.io/bootstrap-select');
+    }
+
+    this.on('afterCreateRuleInput', function (e, rule) {
+
+        if (rule.filter.input == 'datetime') {
+            rule.$el.find(Selectors.rule_value)
+                .removeClass('form-control')
+                .addClass('k-input')
+                .css({
+                    'width': '250px'
+                }).kendoDateTimePicker(options);
+        }
+    })
+});
+
+
+/*!
  * jQuery QueryBuilder Bootstrap Selectpicker
  * Applies Bootstrap Select on filters and operators combo-boxes.
  */
@@ -3576,7 +3694,7 @@ QueryBuilder.define('kendo-dropdownlist', function (options) {
             .removeClass('form-control')
             .addClass('k-textbox')
             .css({
-                'width': '300px',
+                'width': '250px'
             }).kendoDropDownList(options);
     });
 
@@ -3585,7 +3703,7 @@ QueryBuilder.define('kendo-dropdownlist', function (options) {
             .removeClass('form-control')
             .addClass('k-textbox')
             .css({
-                'width': '300px',
+                'width': '250px'
             }).kendoDropDownList(options);
     });
 
@@ -3604,7 +3722,7 @@ QueryBuilder.define('kendo-dropdownlist', function (options) {
                 .removeClass('form-control')
                 .addClass('k-textbox')
                 .css({
-                    'width': '300px',
+                    'width': '250px'
                 }).kendoDropDownList(options);
         }
     });
@@ -3626,10 +3744,82 @@ QueryBuilder.define('kendo-input', function () {
                 .removeClass('form-control')
                 .addClass('k-textbox')
                 .css({
-                    'width': '300px',
+                    'width': '250px'
                 });
         }
     });
+});
+
+
+/*!
+ * jQuery QueryBuilder Radio Buttons with kendo ui
+ * Applies Bootstrap Select on filters and operators combo-boxes.
+ */
+
+/**
+ * @throws ConfigError
+ */
+QueryBuilder.define('kendo-radio', function () {
+    this.on('afterCreateRuleInput', function (e, rule) {
+        if (rule.filter.input == 'radio') {
+            rule.$el.find(Selectors.rule_value)
+                .removeClass('form-control')
+                .addClass('k-radio');
+            rule.$el.find(Selectors.rule_value).siblings().addClass('k-radio-label');
+            rule.$el.find(Selectors.rule_value).siblings().css({
+                'padding-left': '25px',
+                'margin-right': '10px'
+            });
+
+        }
+    });
+});
+
+
+/*!
+ * jQuery QueryBuilder Textarea with kendo ui
+ * Applies Bootstrap Select on filters and operators combo-boxes.
+ */
+
+/**
+ * @throws ConfigError
+ */
+QueryBuilder.define('kendo-textarea', function () {
+    this.on('afterCreateRuleInput', function (e, rule) {
+
+        if (rule.filter.input == 'textarea') {
+            rule.$el.find(Selectors.rule_value)
+                .removeClass('form-control')
+                .addClass('k-textarea');
+        }
+    });
+});
+
+
+/*!
+ * jQuery QueryBuilder Kendo Datepicker
+ * Applies Bootstrap Select on filters and operators combo-boxes.
+ */
+
+/**
+ * @throws ConfigError
+ */
+QueryBuilder.define('kendo-timepicker', function(options) {
+    if (!$.fn.kendoTimePicker) {
+        Utils.error('MissingLibrary', 'Bootstrap Select is required to use "kendoTimePicker" plugin. Get it here: http://silviomoreto.github.io/bootstrap-select');
+    }
+
+    this.on('afterCreateRuleInput', function (e, rule) {
+
+        if (rule.filter.input == 'time') {
+            rule.$el.find(Selectors.rule_value)
+                .removeClass('form-control')
+                .addClass('k-input')
+                .css({
+                    'width': '250px'
+                }).kendoTimePicker(options);
+        }
+    })
 });
 
 

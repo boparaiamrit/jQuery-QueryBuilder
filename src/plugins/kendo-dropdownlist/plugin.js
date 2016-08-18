@@ -17,7 +17,7 @@ QueryBuilder.define('kendo-dropdownlist', function (options) {
             .removeClass('form-control')
             .addClass('k-textbox')
             .css({
-                'width': '300px',
+                'width': '250px'
             }).kendoDropDownList(options);
     });
 
@@ -26,7 +26,7 @@ QueryBuilder.define('kendo-dropdownlist', function (options) {
             .removeClass('form-control')
             .addClass('k-textbox')
             .css({
-                'width': '300px',
+                'width': '250px'
             }).kendoDropDownList(options);
     });
 
@@ -45,7 +45,7 @@ QueryBuilder.define('kendo-dropdownlist', function (options) {
                 .removeClass('form-control')
                 .addClass('k-textbox')
                 .css({
-                    'width': '300px',
+                    'width': '250px'
                 }).kendoDropDownList(options);
         }
     });

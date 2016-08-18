@@ -19,7 +19,11 @@ QueryBuilder.inputs = [
     'textarea',
     'radio',
     'checkbox',
-    'select'
+    'select',
+    'date',
+    'time',
+    'datetime',
+    'color'
 ];
 
 /**

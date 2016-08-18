@@ -17,15 +17,21 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.0/css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="kendoui/styles/kendo.common-fiori.min.css">
     <link rel="stylesheet" href="kendoui/styles/kendo.fiori.min.css">
+    <link rel="stylesheet" href="kendoui/styles/kendo.common-fiori.min.css">
+    <link href="http://querybuilder.js.org/dist/seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css" rel="stylesheet">
 
+    <!--<link href="http://querybuilder.js.org/dist/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css" rel="stylesheet">-->
     <script src="kendoui/js/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="kendoui/js/kendo.web.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.0/js/bootstrap-select.min.js"></script>
     <script src="js/query-builder.standalone.min.js"></script>
+
+    <script src="http://querybuilder.js.org/dist/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.3.0/bootbox.min.js"></script>
+    <!--<script src="http://querybuilder.js.org/dist/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>-->
 </head>
 
 <body>
@@ -39,25 +45,50 @@
         </div>
     </div>
 </section>
+<style>
+    .k-radio-label:before{
+        width: 20px;
+        height: 20px;
+    }
+    .k-checkbox-label:after{
+        display: none;
+    }
+</style>
 <script>
+
     var rules_basic = {
-        condition: 'AND',
-        rules: [{
-            id: 'price',
-            operator: 'less',
-            value: 10.25
-        }, {
-            condition: 'OR',
-            rules: [{
-                id: 'category',
-                operator: 'equal',
-                value: 2
-            }, {
-                id: 'category',
-                operator: 'equal',
-                value: 1
-            }]
-        }]
+        "condition": "AND",
+        "rules": [
+            {
+                "id": "date",
+                "field": "date",
+                "type": "string",
+                "input": "date",
+                "operator": "equal",
+                "value": "8/15/2016"
+            },
+            {
+                "condition": "OR",
+                "rules": [
+                    {
+                        "id": "time",
+                        "field": "time",
+                        "type": "string",
+                        "input": "time",
+                        "operator": "equal",
+                        "value": "2:00 AM"
+                    },
+                    {
+                        "id": "datetime",
+                        "field": "datetime",
+                        "type": "string",
+                        "input": "datetime",
+                        "operator": "equal",
+                        "value": "8/21/2016 12:00 AM"
+                    }
+                ]
+            }
+        ]
     };
 
     $('#builder-basic').queryBuilder({
@@ -67,18 +98,27 @@
             'unique-filter': null,
             'bt-tooltip-errors': null,
             'kendo-input': null,
+            'kendo-radio': null,
+            'kendo-checkbox': null,
             'kendo-dropdownlist': {
                 "filter": "contains"
             },
+            'kendo-textarea': null,
+            'kendo-datepicker': null,
+            'kendo-timepicker': null,
+            'kendo-datetimepicker': null,
             'bt-checkbox': null,
+            'kendo-colorpicker': null,
             'invert': null
         },
 
-        filters: [{
-            id: 'name',
-            label: 'Name',
-            type: 'string'
-        }, {
+        filters: [
+            {
+                id: 'name',
+                label: 'Name',
+                type: 'string'
+            },
+            {
             id: 'category',
             label: 'Category',
             type: 'integer',
@@ -119,7 +159,87 @@
             validation: {
                 format: /^.{4}-.{4}-.{4}$/
             }
-        }],
+        },{
+                id: 'rate',
+                label: 'Slider',
+                type: 'integer',
+                validation: {
+                    min: 0,
+                    max: 100
+                },
+                plugin: 'slider',
+                plugin_config: {
+                    min: 0,
+                    max: 100,
+                    value: 0
+                },
+                valueSetter: function(rule, value) {
+                    if (rule.operator.nb_inputs == 1) value = [value];
+                    rule.$el.find('.rule-value-container input').each(function(i) {
+                        $(this).slider('setValue', value[i] || 0);
+                    });
+                },
+                valueGetter: function(rule) {
+                    var value = [];
+                    rule.$el.find('.rule-value-container input').each(function() {
+                        value.push($(this).slider('getValue'));
+                    });
+                    return rule.operator.nb_inputs == 1 ? value[0] : value;
+                }
+            },
+            {
+                id: 'checkbox',
+                label: 'Checkbox',
+                type: 'integer',
+                input: 'checkbox',
+                values: {
+                    1: 'Books',
+                    2: 'Movies',
+                    3: 'Music',
+                    4: 'Goodies',
+                    5: 'option5',
+                    6: 'option6',
+                    7: 'option7',
+                    8: 'option8',
+                    9: 'option9',
+                    10: 'option10'
+                },
+                color: 'primary',
+                description: 'This filter uses Awesome Bootstrap Checkboxes',
+                operators: ['equal', 'not_equal', 'in', 'not_in', 'is_null', 'is_not_null']
+            },
+            {
+                id: 'textarea',
+                label: 'textarea',
+                type: 'string',
+                input: 'textarea',
+                size: 40
+            },
+            {
+                id: 'date',
+                label: 'Datepicker',
+                type: 'string',
+                input: 'date'
+            },
+            {
+                id: 'time',
+                label: 'Timepicker',
+                type: 'string',
+                input: 'time'
+            },
+            {
+                id: 'datetime',
+                label: 'Date Timepicker',
+                type: 'string',
+                input: 'datetime'
+            },
+            {
+                id: 'colorpicker',
+                label: 'Color picker',
+                type: 'string',
+                input: 'color'
+            }
+        ],
 
         rules: rules_basic
     });
@@ -137,6 +257,33 @@
 
         if (!$.isEmptyObject(result)) {
             alert(JSON.stringify(result, null, 2));
+        }
+    });
+
+    // reset builder
+    $('.reset').on('click', function() {
+       var target = $(this).data('target');
+
+       $('#builder-'+target).queryBuilder('reset');
+    });
+
+    // set rules
+    $('.set-json').on('click', function() {
+       var target = $(this).data('target');
+       var rules = window['rules_'+target];
+
+       $('#builder-'+target).queryBuilder('setRules', rules);
+    });
+    // get rules
+    $('.parse-json').on('click', function() {
+        var target = $(this).data('target');
+        var result = $('#builder-'+target).queryBuilder('getRules');
+
+        if (!$.isEmptyObject(result)) {
+            bootbox.alert({
+                title: $(this).text(),
+                message: '<pre class="code-popup">' + JSON.stringify(result, null, 2) + '</pre>'
+            });
         }
     });
 </script>
