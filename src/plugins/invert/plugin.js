@@ -70,7 +70,7 @@ QueryBuilder.define('invert', function(options) {
         });
     }
 }, {
-    icon: 'glyphicon glyphicon-random',
+    icon: 'fa fa-random',
     recursive: true,
     invert_rules: true,
     display_rules_button: false,

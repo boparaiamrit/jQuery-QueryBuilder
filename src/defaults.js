@@ -47,6 +47,7 @@ var Selectors = QueryBuilder.selectors = {
     operator_container:   '.rule-operator-container',
     value_container:      '.rule-value-container',
     error_container:      '.error-container',
+    drag_handle:          '.drag-handle',
     condition_container:  '.rules-group-header .group-conditions',
 
     rule_header:          '.rule-header',
@@ -170,10 +171,10 @@ QueryBuilder.DEFAULTS = {
     ],
 
     icons: {
-        add_group:    'glyphicon glyphicon-plus-sign',
-        add_rule:     'glyphicon glyphicon-plus',
-        remove_group: 'glyphicon glyphicon-remove',
-        remove_rule:  'glyphicon glyphicon-remove',
-        error:        'glyphicon glyphicon-warning-sign'
+        add_group:    'fa fa-plus-square',
+        add_rule:     'fa fa-plus-circle',
+        remove_group: 'fa fa-remove',
+        remove_rule:  'fa fa-remove',
+        error:        'fa fa-warning'
     }
 };

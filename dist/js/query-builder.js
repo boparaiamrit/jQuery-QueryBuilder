@@ -193,6 +193,7 @@ var Selectors = QueryBuilder.selectors = {
     operator_container:   '.rule-operator-container',
     value_container:      '.rule-value-container',
     error_container:      '.error-container',
+    drag_handle:          '.drag-handle',
     condition_container:  '.rules-group-header .group-conditions',
 
     rule_header:          '.rule-header',
@@ -316,11 +317,11 @@ QueryBuilder.DEFAULTS = {
     ],
 
     icons: {
-        add_group:    'glyphicon glyphicon-plus-sign',
-        add_rule:     'glyphicon glyphicon-plus',
-        remove_group: 'glyphicon glyphicon-remove',
-        remove_rule:  'glyphicon glyphicon-remove',
-        error:        'glyphicon glyphicon-warning-sign'
+        add_group:    'fa fa-plus-square',
+        add_rule:     'fa fa-plus-circle',
+        remove_group: 'fa fa-remove',
+        remove_rule:  'fa fa-remove',
+        error:        'fa fa-warning'
     }
 };
 
@@ -3217,7 +3218,7 @@ QueryBuilder.define('invert', function(options) {
         });
     }
 }, {
-    icon: 'glyphicon glyphicon-random',
+    icon: 'fa fa-random',
     recursive: true,
     invert_rules: true,
     display_rules_button: false,
@@ -3316,7 +3317,11 @@ QueryBuilder.define('kendo-checkbox', function () {
             rule.$el.find(Selectors.operator_container).css({
                 'vertical-align': 'top'
             });
-
+            rule.$el.find(Selectors.drag_handle).css({
+                'vertical-align': 'top',
+                'position': 'relative',
+                'top': '10px'
+            });
         }
     });
 });
@@ -3330,17 +3335,17 @@ QueryBuilder.define('kendo-checkbox', function () {
 /**
  * @throws ConfigError
  */
-QueryBuilder.define('kendo-colorpicker', function(options) {
+QueryBuilder.define('kendo-colorpicker', function (options) {
+    //noinspection JSUnresolvedVariable
     if (!$.fn.kendoColorPicker) {
-        Utils.error('MissingLibrary', 'Bootstrap Select is required to use "kendoColorPicker" plugin. Get it here: http://silviomoreto.github.io/bootstrap-select');
+        Utils.error('MissingLibrary', 'Kendo UI is required to use "kendoColorPicker" plugin.');
     }
 
-    
     this.on('afterCreateRuleInput', function (e, rule) {
         if (rule.filter.input == 'color') {
+            //noinspection JSUnresolvedFunction
             rule.$el.find(Selectors.rule_value)
                 .removeClass('form-control')
-                .addClass('k-input')
                 .css({
                     'width': '250px'
                 }).kendoColorPicker(options);
@@ -3357,16 +3362,17 @@ QueryBuilder.define('kendo-colorpicker', function(options) {
 /**
  * @throws ConfigError
  */
-QueryBuilder.define('kendo-datepicker', function(options) {
+QueryBuilder.define('kendo-datepicker', function (options) {
+    //noinspection JSUnresolvedVariable
     if (!$.fn.kendoDatePicker) {
-        Utils.error('MissingLibrary', 'Bootstrap Select is required to use "kendoDatePicker" plugin. Get it here: http://silviomoreto.github.io/bootstrap-select');
+        Utils.error('MissingLibrary', 'Kendo UI is required to use "kendoDatePicker" plugin.');
     }
 
     this.on('afterCreateRuleInput', function (e, rule) {
         if (rule.filter.input == 'date') {
+            //noinspection JSUnresolvedFunction
             rule.$el.find(Selectors.rule_value)
                 .removeClass('form-control')
-                .addClass('k-input')
                 .css({
                     'width': '250px'
                 }).kendoDatePicker(options);
@@ -3383,17 +3389,18 @@ QueryBuilder.define('kendo-datepicker', function(options) {
 /**
  * @throws ConfigError
  */
-QueryBuilder.define('kendo-datetimepicker', function(options) {
+QueryBuilder.define('kendo-datetimepicker', function (options) {
+    //noinspection JSUnresolvedVariable
     if (!$.fn.kendoDateTimePicker) {
-        Utils.error('MissingLibrary', 'Bootstrap Select is required to use "kendoDateTimePicker" plugin. Get it here: http://silviomoreto.github.io/bootstrap-select');
+        Utils.error('MissingLibrary', 'Kendo UI is required to use "kendoDateTimePicker" plugin.');
     }
 
     this.on('afterCreateRuleInput', function (e, rule) {
 
         if (rule.filter.input == 'datetime') {
+            //noinspection JSUnresolvedFunction
             rule.$el.find(Selectors.rule_value)
                 .removeClass('form-control')
-                .addClass('k-input')
                 .css({
                     'width': '250px'
                 }).kendoDateTimePicker(options);
@@ -3411,24 +3418,25 @@ QueryBuilder.define('kendo-datetimepicker', function(options) {
  * @throws ConfigError
  */
 QueryBuilder.define('kendo-dropdownlist', function (options) {
+    //noinspection JSUnresolvedVariable
     if (!$.fn.kendoDropDownList) {
-        Utils.error('MissingLibrary', 'Kendo Dropdownlist is required to use "kendo-dropdownlist" plugin.');
+        Utils.error('MissingLibrary', 'Kendo UI is required to use "kendo-dropdownlist" plugin.');
     }
 
     // init kendoDropDownList
     this.on('afterCreateRuleFilters', function (e, rule) {
+        //noinspection JSUnresolvedFunction
         rule.$el.find(Selectors.rule_filter)
             .removeClass('form-control')
-            .addClass('k-textbox')
             .css({
                 'width': '250px'
             }).kendoDropDownList(options);
     });
 
     this.on('afterCreateRuleOperators', function (e, rule) {
+        //noinspection JSUnresolvedFunction
         rule.$el.find(Selectors.rule_operator)
             .removeClass('form-control')
-            .addClass('k-textbox')
             .css({
                 'width': '250px'
             }).kendoDropDownList(options);
@@ -3436,18 +3444,20 @@ QueryBuilder.define('kendo-dropdownlist', function (options) {
 
     // update kendoDropDownList on change
     this.on('afterUpdateRuleFilter', function (e, rule) {
+        //noinspection JSUnresolvedFunction
         rule.$el.find(Selectors.rule_filter).kendoDropDownList(options);
     });
 
     this.on('afterUpdateRuleOperator', function (e, rule) {
+        //noinspection JSUnresolvedFunction
         rule.$el.find(Selectors.rule_operator).kendoDropDownList(options);
     });
 
     this.on('afterCreateRuleInput', function (e, rule) {
         if (rule.filter.input == 'select') {
+            //noinspection JSUnresolvedFunction
             rule.$el.find(Selectors.rule_value)
                 .removeClass('form-control')
-                .addClass('k-textbox')
                 .css({
                     'width': '250px'
                 }).kendoDropDownList(options);
@@ -3497,7 +3507,6 @@ QueryBuilder.define('kendo-radio', function () {
                 'padding-left': '25px',
                 'margin-right': '10px'
             });
-
         }
     });
 });
@@ -3513,11 +3522,26 @@ QueryBuilder.define('kendo-radio', function () {
  */
 QueryBuilder.define('kendo-textarea', function () {
     this.on('afterCreateRuleInput', function (e, rule) {
-
         if (rule.filter.input == 'textarea') {
             rule.$el.find(Selectors.rule_value)
                 .removeClass('form-control')
-                .addClass('k-textarea');
+                .addClass('k-textbox')
+                .css({
+                    'height': '100px',
+                    'width': '250px'
+                });
+
+            rule.$el.find(Selectors.filter_container).css({
+                'vertical-align': 'top'
+            });
+            rule.$el.find(Selectors.operator_container).css({
+                'vertical-align': 'top'
+            });
+            rule.$el.find(Selectors.drag_handle).css({
+                'vertical-align': 'top',
+                'position': 'relative',
+                'top': '10px'
+            });
         }
     });
 });
@@ -3532,16 +3556,17 @@ QueryBuilder.define('kendo-textarea', function () {
  * @throws ConfigError
  */
 QueryBuilder.define('kendo-timepicker', function(options) {
+    //noinspection JSUnresolvedVariable
     if (!$.fn.kendoTimePicker) {
-        Utils.error('MissingLibrary', 'Bootstrap Select is required to use "kendoTimePicker" plugin. Get it here: http://silviomoreto.github.io/bootstrap-select');
+        Utils.error('MissingLibrary', 'Kendo UI is required to use "kendoTimePicker" plugin.');
     }
 
     this.on('afterCreateRuleInput', function (e, rule) {
 
         if (rule.filter.input == 'time') {
+            //noinspection JSUnresolvedFunction
             rule.$el.find(Selectors.rule_value)
                 .removeClass('form-control')
-                .addClass('k-input')
                 .css({
                     'width': '250px'
                 }).kendoTimePicker(options);
@@ -3943,7 +3968,7 @@ QueryBuilder.define('sortable', function(options) {
     });
 }, {
     default_no_sortable: false,
-    icon: 'glyphicon glyphicon-sort'
+    icon: 'fa fa-arrows'
 });
 
 /**

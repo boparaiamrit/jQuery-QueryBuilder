@@ -136,7 +136,7 @@ QueryBuilder.define('sortable', function(options) {
     });
 }, {
     default_no_sortable: false,
-    icon: 'glyphicon glyphicon-sort'
+    icon: 'fa fa-arrows'
 });
 
 /**

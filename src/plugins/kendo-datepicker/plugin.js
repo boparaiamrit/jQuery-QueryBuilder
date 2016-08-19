@@ -6,16 +6,17 @@
 /**
  * @throws ConfigError
  */
-QueryBuilder.define('kendo-datepicker', function(options) {
+QueryBuilder.define('kendo-datepicker', function (options) {
+    //noinspection JSUnresolvedVariable
     if (!$.fn.kendoDatePicker) {
-        Utils.error('MissingLibrary', 'Bootstrap Select is required to use "kendoDatePicker" plugin. Get it here: http://silviomoreto.github.io/bootstrap-select');
+        Utils.error('MissingLibrary', 'Kendo UI is required to use "kendoDatePicker" plugin.');
     }
 
     this.on('afterCreateRuleInput', function (e, rule) {
         if (rule.filter.input == 'date') {
+            //noinspection JSUnresolvedFunction
             rule.$el.find(Selectors.rule_value)
                 .removeClass('form-control')
-                .addClass('k-input')
                 .css({
                     'width': '250px'
                 }).kendoDatePicker(options);

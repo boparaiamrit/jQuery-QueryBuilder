@@ -26,7 +26,11 @@ QueryBuilder.define('kendo-checkbox', function () {
             rule.$el.find(Selectors.operator_container).css({
                 'vertical-align': 'top'
             });
-
+            rule.$el.find(Selectors.drag_handle).css({
+                'vertical-align': 'top',
+                'position': 'relative',
+                'top': '10px'
+            });
         }
     });
 });

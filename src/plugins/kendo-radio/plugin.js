@@ -17,7 +17,6 @@ QueryBuilder.define('kendo-radio', function () {
                 'padding-left': '25px',
                 'margin-right': '10px'
             });
-
         }
     });
 });

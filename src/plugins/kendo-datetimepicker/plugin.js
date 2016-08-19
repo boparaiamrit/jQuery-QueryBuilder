@@ -6,17 +6,18 @@
 /**
  * @throws ConfigError
  */
-QueryBuilder.define('kendo-datetimepicker', function(options) {
+QueryBuilder.define('kendo-datetimepicker', function (options) {
+    //noinspection JSUnresolvedVariable
     if (!$.fn.kendoDateTimePicker) {
-        Utils.error('MissingLibrary', 'Bootstrap Select is required to use "kendoDateTimePicker" plugin. Get it here: http://silviomoreto.github.io/bootstrap-select');
+        Utils.error('MissingLibrary', 'Kendo UI is required to use "kendoDateTimePicker" plugin.');
     }
 
     this.on('afterCreateRuleInput', function (e, rule) {
 
         if (rule.filter.input == 'datetime') {
+            //noinspection JSUnresolvedFunction
             rule.$el.find(Selectors.rule_value)
                 .removeClass('form-control')
-                .addClass('k-input')
                 .css({
                     'width': '250px'
                 }).kendoDateTimePicker(options);

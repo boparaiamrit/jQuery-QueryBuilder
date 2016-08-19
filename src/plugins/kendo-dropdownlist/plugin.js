@@ -7,24 +7,25 @@
  * @throws ConfigError
  */
 QueryBuilder.define('kendo-dropdownlist', function (options) {
+    //noinspection JSUnresolvedVariable
     if (!$.fn.kendoDropDownList) {
-        Utils.error('MissingLibrary', 'Kendo Dropdownlist is required to use "kendo-dropdownlist" plugin.');
+        Utils.error('MissingLibrary', 'Kendo UI is required to use "kendo-dropdownlist" plugin.');
     }
 
     // init kendoDropDownList
     this.on('afterCreateRuleFilters', function (e, rule) {
+        //noinspection JSUnresolvedFunction
         rule.$el.find(Selectors.rule_filter)
             .removeClass('form-control')
-            .addClass('k-textbox')
             .css({
                 'width': '250px'
             }).kendoDropDownList(options);
     });
 
     this.on('afterCreateRuleOperators', function (e, rule) {
+        //noinspection JSUnresolvedFunction
         rule.$el.find(Selectors.rule_operator)
             .removeClass('form-control')
-            .addClass('k-textbox')
             .css({
                 'width': '250px'
             }).kendoDropDownList(options);
@@ -32,18 +33,20 @@ QueryBuilder.define('kendo-dropdownlist', function (options) {
 
     // update kendoDropDownList on change
     this.on('afterUpdateRuleFilter', function (e, rule) {
+        //noinspection JSUnresolvedFunction
         rule.$el.find(Selectors.rule_filter).kendoDropDownList(options);
     });
 
     this.on('afterUpdateRuleOperator', function (e, rule) {
+        //noinspection JSUnresolvedFunction
         rule.$el.find(Selectors.rule_operator).kendoDropDownList(options);
     });
 
     this.on('afterCreateRuleInput', function (e, rule) {
         if (rule.filter.input == 'select') {
+            //noinspection JSUnresolvedFunction
             rule.$el.find(Selectors.rule_value)
                 .removeClass('form-control')
-                .addClass('k-textbox')
                 .css({
                     'width': '250px'
                 }).kendoDropDownList(options);

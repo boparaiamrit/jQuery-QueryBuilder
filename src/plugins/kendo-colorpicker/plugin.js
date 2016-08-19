@@ -6,17 +6,17 @@
 /**
  * @throws ConfigError
  */
-QueryBuilder.define('kendo-colorpicker', function(options) {
+QueryBuilder.define('kendo-colorpicker', function (options) {
+    //noinspection JSUnresolvedVariable
     if (!$.fn.kendoColorPicker) {
-        Utils.error('MissingLibrary', 'Bootstrap Select is required to use "kendoColorPicker" plugin. Get it here: http://silviomoreto.github.io/bootstrap-select');
+        Utils.error('MissingLibrary', 'Kendo UI is required to use "kendoColorPicker" plugin.');
     }
-
 
     this.on('afterCreateRuleInput', function (e, rule) {
         if (rule.filter.input == 'color') {
+            //noinspection JSUnresolvedFunction
             rule.$el.find(Selectors.rule_value)
                 .removeClass('form-control')
-                .addClass('k-input')
                 .css({
                     'width': '250px'
                 }).kendoColorPicker(options);
