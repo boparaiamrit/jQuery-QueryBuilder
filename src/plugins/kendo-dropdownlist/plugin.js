@@ -43,13 +43,20 @@ QueryBuilder.define('kendo-dropdownlist', function (options) {
     });
 
     this.on('afterCreateRuleInput', function (e, rule) {
+        var localOptions = {};
         if (rule.filter.input == 'select') {
+            if (rule.filter.plugin_config) {
+                localOptions = rule.filter.plugin_config;
+            } else {
+                localOptions = options;
+            }
+
             //noinspection JSUnresolvedFunction
             rule.$el.find(Selectors.rule_value)
                 .removeClass('form-control')
                 .css({
                     'width': '250px'
-                }).kendoDropDownList(options);
+                }).kendoDropDownList(localOptions);
         }
     });
 });
