@@ -41,11 +41,4 @@ QueryBuilder.define('kendo-datepicker', function (options) {
             });
         }
     });
-
-    this.on('afterUpdateRuleOperator', function (e, rule) {
-        //noinspection JSUnresolvedFunction
-        console.log(rule.filter);
-    });
-
-
 });

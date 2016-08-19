@@ -62,7 +62,7 @@ module.exports = function(grunt) {
         js_files_for_standalone = [
             'bower_components/jquery-extendext/jQuery.extendext.js',
             'bower_components/doT/doT.js',
-            'dist/js/query-builder.js'
+            '../../promoto/public/theme/plugins/query-builder/js/query-builder.js'
         ];
 
 
@@ -192,14 +192,14 @@ module.exports = function(grunt) {
                     expand: true,
                     flatten: true,
                     src: ['src/scss/*.scss'],
-                    dest: 'dist/scss'
+                    dest: '../../promoto/public/theme/plugins/query-builder/scss'
                 }]
             },
             sass_plugins: {
                 files: loaded_plugins.map(function(name) {
                     return {
                         src: 'src/plugins/' + name + '/plugin.scss',
-                        dest: 'dist/scss/plugins/' + name + '.scss'
+                        dest: '../../promoto/public/theme/plugins/query-builder/scss/plugins/' + name + '.scss'
                     };
                 })
             }
@@ -209,7 +209,7 @@ module.exports = function(grunt) {
             // concat all JS
             js: {
                 src: js_files_to_load,
-                dest: 'dist/js/query-builder.js',
+                dest: '../../promoto/public/theme/plugins/query-builder/js/query-builder.js',
                 options: {
                     stripBanners: false,
                     separator: '\n\n',
@@ -221,7 +221,7 @@ module.exports = function(grunt) {
             // create standalone version
             js_standalone: {
                 src: js_files_for_standalone,
-                dest: 'dist/js/query-builder.standalone.js',
+                dest: '../../promoto/public/theme/plugins/query-builder/js/query-builder.standalone.js',
                 options: {
                     stripBanners: false,
                     separator: '\n\n',
@@ -239,7 +239,7 @@ module.exports = function(grunt) {
                 files: Object.keys(all_langs).map(function(name) {
                     return {
                         src: 'src/i18n/' + name + '.json',
-                        dest: 'dist/i18n/query-builder.' + name + '.js'
+                        dest: '../../promoto/public/theme/plugins/query-builder/i18n/query-builder.' + name + '.js'
                     };
                 }),
                 options: {
@@ -270,7 +270,7 @@ module.exports = function(grunt) {
                 },
                 files: [{
                     expand: true,
-                    src: ['dist/css/*.css', 'dist/scss/*.scss'],
+                    src: ['../../promoto/public/theme/plugins/query-builder/css/*.css', '../../promoto/public/theme/plugins/query-builder/scss/*.scss'],
                     dest: ''
                 }]
             }
@@ -279,7 +279,7 @@ module.exports = function(grunt) {
         wrap: {
             // add AMD wrapper and banner
             js: {
-                src: ['dist/js/query-builder.js'],
+                src: ['../../promoto/public/theme/plugins/query-builder/js/query-builder.js'],
                 dest: '',
                 options: {
                     separator: '',
@@ -300,13 +300,13 @@ module.exports = function(grunt) {
             },
             // add plugins SASS imports
             sass: {
-                src: ['dist/scss/default.scss'],
+                src: ['../../promoto/public/theme/plugins/query-builder/scss/default.scss'],
                 dest: '',
                 options: {
                     separator: '',
                     wrapper: function() {
                         return ['', loaded_plugins.reduce(function(wrapper, name) {
-                            if (grunt.file.exists('dist/scss/plugins/' + name + '.scss')) {
+                            if (grunt.file.exists('../../promoto/public/theme/plugins/query-builder/scss/plugins/' + name + '.scss')) {
                                 wrapper += '\n@import \'plugins/' + name + '\';';
                             }
                             return wrapper;
@@ -326,8 +326,8 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     flatten: true,
-                    src: ['dist/scss/*.scss'],
-                    dest: 'dist/css',
+                    src: ['../../promoto/public/theme/plugins/query-builder/scss/*.scss'],
+                    dest: '../../promoto/public/theme/plugins/query-builder/css',
                     ext: '.css',
                     rename: function(dest, src) {
                         return dest + '/query-builder.' + src;
@@ -346,8 +346,8 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     flatten: true,
-                    src: ['dist/js/*.js', '!dist/js/*.min.js'],
-                    dest: 'dist/js',
+                    src: ['../../promoto/public/theme/plugins/query-builder/js/*.js', '!../../promoto/public/theme/plugins/query-builder/js/*.min.js'],
+                    dest: '../../promoto/public/theme/plugins/query-builder/js',
                     ext: '.min.js',
                     extDot: 'last'
                 }]
@@ -360,8 +360,8 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     flatten: true,
-                    src: ['dist/css/*.css', '!dist/css/*.min.css'],
-                    dest: 'dist/css',
+                    src: ['../../promoto/public/theme/plugins/query-builder/css/*.css', '!../../promoto/public/theme/plugins/query-builder/css/*.min.css'],
+                    dest: '../../promoto/public/theme/plugins/query-builder/css',
                     ext: '.min.css',
                     extDot: 'last'
                 }]

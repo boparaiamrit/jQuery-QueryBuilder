@@ -18,7 +18,12 @@ QueryBuilder.templates.group = '\
     </div> \
     <div class="btn-group group-conditions"> \
       {{~ it.conditions: condition }} \
+      {{? condition == "AND" }} \
         <label class="btn btn-xs btn-primary"> \
+      {{?}} \
+      {{? condition == "OR" }} \
+        <label class="btn btn-xs btn-danger"> \
+      {{?}} \
           <input type="radio" name="{{= it.group_id }}_cond" value="{{= condition }}"> {{= it.lang.conditions[condition] || condition }} \
         </label> \
       {{~}} \
@@ -184,10 +189,10 @@ QueryBuilder.prototype.getRuleInput = function(rule, value_id) {
     else {
         switch (filter.input) {
             case 'radio': case 'checkbox':
-                Utils.iterateOptions(filter.values, function(key, val) {
-                    h+= '<label' + c + '><input type="' + filter.input + '" name="' + name + '" value="' + key + '"> ' + val + '</label> ';
-                });
-                break;
+            Utils.iterateOptions(filter.values, function(key, val) {
+                h+= '<label' + c + '><input type="' + filter.input + '" name="' + name + '" value="' + key + '"> ' + val + '</label> ';
+            });
+            break;
 
             case 'select':
                 h+= '<select class="form-control" name="' + name + '"' + (filter.multiple ? ' multiple' : '') + '>';
