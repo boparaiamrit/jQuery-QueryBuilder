@@ -12,51 +12,94 @@ QueryBuilder.define('kendo-dropdownlist', function (options) {
         Utils.error('MissingLibrary', 'Kendo UI is required to use "kendo-dropdownlist" plugin.');
     }
 
+    var stopScroll = function (element) {
+        //noinspection JSUnresolvedVariable
+        if (window.stopScroll && typeof window.stopScroll == 'function') {
+            var widget = element.data("kendoDropDownList");
+            //noinspection JSUnresolvedFunction
+            window.stopScroll(widget.ul.parent());
+        }
+    };
+
     // init kendoDropDownList
     this.on('afterCreateRuleFilters', function (e, rule) {
         //noinspection JSUnresolvedFunction
-        rule.$el.find(Selectors.rule_filter)
+        var $el = rule.$el.find(Selectors.rule_filter)
             .removeClass('form-control')
             .css({
                 'width': '250px'
             }).kendoDropDownList(options);
+
+        stopScroll($el);
     });
 
     this.on('afterCreateRuleOperators', function (e, rule) {
         //noinspection JSUnresolvedFunction
-        rule.$el.find(Selectors.rule_operator)
+        var $el = rule.$el.find(Selectors.rule_operator)
             .removeClass('form-control')
             .css({
                 'width': '250px'
             }).kendoDropDownList(options);
+
+        stopScroll($el);
     });
 
     // update kendoDropDownList on change
     this.on('afterUpdateRuleFilter', function (e, rule) {
-        //noinspection JSUnresolvedFunction
-        rule.$el.find(Selectors.rule_filter).kendoDropDownList(options);
+        var $el = rule.$el.find(Selectors.rule_filter);
+
+        var dropdownList = $el.data("kendoDropDownList");
+
+        if (dropdownList._initial == "-1") {
+            //noinspection JSUnresolvedFunction
+            $el.kendoDropDownList(options);
+            stopScroll($el);
+        }
     });
 
     this.on('afterUpdateRuleOperator', function (e, rule) {
-        //noinspection JSUnresolvedFunction
-        rule.$el.find(Selectors.rule_operator).kendoDropDownList(options);
+        var $el = rule.$el.find(Selectors.rule_operator);
+
+        var dropdownList = $el.data("kendoDropDownList");
+
+        if (dropdownList._initial == "-1") {
+            //noinspection JSUnresolvedFunction
+            $el.kendoDropDownList(options);
+            stopScroll($el);
+        }
     });
 
     this.on('afterCreateRuleInput', function (e, rule) {
         var localOptions = {};
+        var $el = rule.$el.find(Selectors.rule_value);
+
         if (rule.filter.input == 'select') {
             if (rule.filter.plugin_config) {
                 localOptions = rule.filter.plugin_config;
-            } else {
-                localOptions = options;
-            }
 
-            //noinspection JSUnresolvedFunction
-            rule.$el.find(Selectors.rule_value)
-                .removeClass('form-control')
-                .css({
-                    'width': '250px'
-                }).kendoDropDownList(localOptions);
+                localOptions.dataSource.filter = [];
+                localOptions.dataSource.value = '';
+
+                setTimeout(function () {
+                    if (rule.value !== undefined) {
+                        localOptions.dataSource.filter = [{
+                            "field": "_id",
+                            "operator": "eq",
+                            "value": rule.value
+                        }];
+
+                        localOptions.value = rule.value;
+                    }
+
+                    //noinspection JSUnresolvedFunction
+                    $el.removeClass('form-control')
+                        .css({
+                            'width': '250px'
+                        }).kendoDropDownList(localOptions);
+
+                    stopScroll($el);
+                }, 300);
+            }
         }
     });
 });

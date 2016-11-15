@@ -19,10 +19,10 @@ QueryBuilder.templates.group = '\
     <div class="btn-group group-conditions"> \
       {{~ it.conditions: condition }} \
       {{? condition == "AND" }} \
-        <label class="btn btn-xs btn-primary"> \
+        <label class="btn btn-xs btn-default"> \
       {{?}} \
       {{? condition == "OR" }} \
-        <label class="btn btn-xs btn-danger"> \
+        <label class="btn btn-xs btn-default"> \
       {{?}} \
           <input type="radio" name="{{= it.group_id }}_cond" value="{{= condition }}"> {{= it.lang.conditions[condition] || condition }} \
         </label> \
