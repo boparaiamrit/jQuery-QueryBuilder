@@ -50,11 +50,13 @@ QueryBuilder.define('kendo-dropdownlist', function (options) {
 
         var dropdownList = $el.data("kendoDropDownList");
 
-        if (dropdownList._initial == "-1") {
+        if (dropdownList._old == '-1') {
             //noinspection JSUnresolvedFunction
             $el.kendoDropDownList(options);
-            stopScroll($el);
+        } else {
+            dropdownList.refresh();
         }
+
     });
 
     this.on('afterUpdateRuleOperator', function (e, rule) {
@@ -62,11 +64,13 @@ QueryBuilder.define('kendo-dropdownlist', function (options) {
 
         var dropdownList = $el.data("kendoDropDownList");
 
-        if (dropdownList._initial == "-1") {
+        if (dropdownList._old == '-1') {
             //noinspection JSUnresolvedFunction
             $el.kendoDropDownList(options);
-            stopScroll($el);
+        } else {
+            dropdownList.refresh();
         }
+
     });
 
     this.on('afterCreateRuleInput', function (e, rule) {
@@ -99,6 +103,10 @@ QueryBuilder.define('kendo-dropdownlist', function (options) {
 
                     stopScroll($el);
                 }, 300);
+            } else {
+                //noinspection JSUnresolvedFunction
+                $el.kendoDropDownList(options);
+                stopScroll($el);
             }
         }
     });
