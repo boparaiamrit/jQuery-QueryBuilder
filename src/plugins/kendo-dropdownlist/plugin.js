@@ -64,13 +64,7 @@ QueryBuilder.define('kendo-dropdownlist', function (options) {
 
         var dropdownList = $el.data("kendoDropDownList");
 
-        if (dropdownList._old == '-1') {
-            //noinspection JSUnresolvedFunction
-            $el.kendoDropDownList(options);
-        } else {
-            dropdownList.refresh();
-        }
-
+        $el.kendoDropDownList(options);
     });
 
     this.on('afterCreateRuleInput', function (e, rule) {
@@ -102,7 +96,7 @@ QueryBuilder.define('kendo-dropdownlist', function (options) {
                         }).kendoDropDownList(localOptions);
 
                     stopScroll($el);
-                }, 300);
+                }, 100);
             } else {
                 //noinspection JSUnresolvedFunction
                 $el.kendoDropDownList(options);
